@@ -1,0 +1,51 @@
+﻿@page
+@model Web.Pages.Vehiculos.IndexModel
+@{
+}
+
+<h1>Listado de vehiculos</h1>
+
+<div class="container">
+
+    <div class="row">
+
+        @if (Model.vehiculos != null)
+        {
+            @foreach (var vehiculo in Model.vehiculos)
+            {
+                <div class="col-md-4 mb-4">
+
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h5 class="card-title">
+                                @Html.DisplayFor(modelo => vehiculo.Marca)
+                            </h5>
+
+                            <h6 class="card-subtitle mb-2 text-muted">
+                                @Html.DisplayFor(modelo => vehiculo.Modelo)
+                            </h6>
+
+                            <p class="card-text">
+                                Placa: @Html.DisplayFor(modelo => vehiculo.Placa)
+                            </p>
+
+                            <p class="card-text">
+                                Año: @Html.DisplayFor(modelo => vehiculo.Anio)
+                            </p>
+
+                            <a type="button" class="btn btn-primary" asp-page="./Detalle" asp-route-id="@vehiculo.Id">Detalle</a>
+                            <a type="button" class="btn btn-warning" asp-page="./Editar" asp-route-id="@vehiculo.Id">Editar</a>
+                            <a type="button" class="btn btn-danger" asp-page="./Eliminar" asp-route-id="@vehiculo.Id">Eliminar</a>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            }
+        }
+
+    </div>
+
+</div>

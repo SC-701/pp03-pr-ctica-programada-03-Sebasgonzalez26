@@ -1,0 +1,76 @@
+﻿@page
+@model Web.Pages.Vehiculos.EliminarModel
+@{
+}
+
+
+<h1>Eliminar Vehiculo</h1>
+
+<div class="container">
+
+    <form method="post">
+
+    <div class="col-md-8">
+
+
+       
+
+
+
+     
+
+        <div class="card">
+
+            <div class="card-body">
+
+                <h5 class="card-title">
+                    @Html.DisplayFor(modelo => modelo.Vehiculo.Marca)
+                    @Html.DisplayFor(modelo => modelo.Vehiculo.Modelo)
+                </h5>
+
+                <div class="card-text">
+                    <b>@Html.DisplayNameFor(modelo => modelo.Vehiculo.Placa):</b>
+                    @Html.DisplayFor(modelo => modelo.Vehiculo.Placa)
+                </div>
+
+                <div class="card-text">
+                    <b>@Html.DisplayNameFor(modelo => modelo.Vehiculo.Anio):</b>
+                    @Html.DisplayFor(modelo => modelo.Vehiculo.Anio)
+                </div>
+
+                <div class="card-text">
+                    <b>@Html.DisplayNameFor(modelo => modelo.Vehiculo.Precio):</b>
+                    @Html.DisplayFor(modelo => modelo.Vehiculo.Precio)
+                </div>
+
+                <p class="card-text">
+                    <small class="text-muted">
+                        @Html.DisplayFor(modelo => modelo.Vehiculo.CorreoPropietario)
+                        <br />
+                        @Html.DisplayFor(modelo => modelo.Vehiculo.TelefonoPropietario)
+                    </small>
+                </p>
+
+            </div>
+
+            <div class="card-footer">
+
+                <a class="btn btn-primary" asp-page="./Index">
+                    Regresar
+                </a>
+
+                <button type="submit" class=" btn btn-danger" >
+                    Eliminar
+                </button>
+
+
+
+        </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
