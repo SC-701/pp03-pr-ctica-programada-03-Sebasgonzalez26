@@ -1,11 +1,6 @@
 ﻿using Abstracciones.Interfaces.Reglas;
 using Abstracciones.Interfaces.Servicios;
 using Abstracciones.Modelos.Servicios.Revision;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Reglas
 {
@@ -23,21 +18,21 @@ namespace Reglas
         public async Task<bool> RevisionEsValida(string placa)
         {
             var resultadoRevision = await _revisionServicio.Obtener(placa);
+
+            if (resultadoRevision == null)
+                return false;
+
             if (ValidarEstado(resultadoRevision) && ValidarPeriodo(resultadoRevision.Periodo))
                 return true;
+
             return false;
-
-
-
-
         }
 
         private bool ValidarEstado(Revision resultadoRevision)
         {
-           string estadoRevision = _configuracion.ObtenerValor("EstadoRevisionSatisfactorio");
+            string estadoRevision = _configuracion.ObtenerValor("EstadoRevisionSatisfactorio");
             return resultadoRevision.Resultado == estadoRevision;
         }
-
 
         private static string ObtenerPrecioActual()
         {

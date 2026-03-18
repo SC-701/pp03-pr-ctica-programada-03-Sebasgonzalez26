@@ -18,7 +18,7 @@ namespace Abstracciones.Modelos
         public string Color { get; set; }
 
         [Required(ErrorMessage = "La propiedad año es requerida")]
-        [RegularExpression(@"(19 | 20)\d\d", ErrorMessage = "El formato del año no es valido")]
+        [Range(1900, 2099, ErrorMessage = "El formato del año no es valido")]
         public int Anio { get; set; }
 
         [Required(ErrorMessage = "La propiedad precio es requerida")]

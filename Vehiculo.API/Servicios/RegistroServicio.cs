@@ -1,12 +1,11 @@
 ﻿using Abstracciones.Interfaces.Reglas;
 using Abstracciones.Interfaces.Servicios;
 using Abstracciones.Modelos.Servicios.Registro;
+using System.Net;
 using System.Text.Json;
-using System.Text.Json.Nodes;
 
 namespace Servicios
 {
-   
     public class RegistroServicio : IRegistroServicio
     {
         private readonly IConfiguracion _configuracion;
@@ -17,6 +16,7 @@ namespace Servicios
             _configuracion = configuracion;
             _httpClientFactory = httpClientFactory;
         }
+
         public async Task<Propietario> Obtener(string placa)
         {
             var endPoint = _configuracion.ObtenerMetodo("ApiEndPointsRegistro", "ObtenerRegistros");
@@ -25,6 +25,12 @@ namespace Servicios
             var url = string.Format(endPoint, placa);
 
             var respuesta = await servicioRegistro.GetAsync(url);
+
+            if (respuesta.StatusCode == HttpStatusCode.NotFound)
+            {
+                return null;
+            }
+
             var resultado = await respuesta.Content.ReadAsStringAsync();
 
             respuesta.EnsureSuccessStatusCode();
@@ -34,6 +40,5 @@ namespace Servicios
 
             return lista?.FirstOrDefault();
         }
-        
     }
 }

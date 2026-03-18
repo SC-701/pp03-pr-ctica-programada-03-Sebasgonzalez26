@@ -32,6 +32,13 @@ builder.Services.AddScoped<IConfiguracion, Configuracion>();
 builder.Services.AddScoped<IRegistroReglas, RegistroReglas>();
 builder.Services.AddScoped<IRevisionReglas, RevisonReglas>();
 
+
+
+builder.Services.AddScoped<IMarcaDA, MarcaDA>();
+builder.Services.AddScoped<IModeloDA, ModeloDA>();
+builder.Services.AddScoped<IMarcaFlujo, MarcaFlujo>();
+builder.Services.AddScoped<IModeloFlujo, ModeloFlujo>();
+
 var app = builder.Build();
 
 

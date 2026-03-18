@@ -1,0 +1,98 @@
+﻿@page
+@model Web.Pages.Vehiculos.EditarModel
+@{
+}
+
+<h1>Editar Vehiculo</h1>
+<div class="container">
+    <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto">
+
+        <form method="post">
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label for="marcas">Marca</label>
+                <select asp-for="marcaseleccionada" class="form-select" asp-items="Model.marcas" id="marcas" onchange="fectModelos()">
+                    <option value="">Seleccione una marca</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="modelos">Modelo</label>
+                <select asp-for="VehiculoRequest.IdModelo" class="form-select" asp-items="Model.modelos" id="modelos">
+                    <option value="">Seleccione un modelo</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" asp-for="VehiculoRequest.Placa"></label>
+                <input class="form-control" asp-for="VehiculoRequest.Placa" />
+                <span class="text-danger" asp-validation-for="VehiculoRequest.Placa"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" asp-for="VehiculoRequest.Precio"></label>
+                <input class="form-control" asp-for="VehiculoRequest.Precio" />
+                <span class="text-danger" asp-validation-for="VehiculoRequest.Precio"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" asp-for="VehiculoRequest.Anio"></label>
+                <input class="form-control" asp-for="VehiculoRequest.Anio" />
+                <span class="text-danger" asp-validation-for="VehiculoRequest.Anio"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" asp-for="VehiculoRequest.Color"></label>
+                <input class="form-control" asp-for="VehiculoRequest.Color" />
+                <span class="text-danger" asp-validation-for="VehiculoRequest.Color"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" asp-for="VehiculoRequest.CorreoPropietario"></label>
+                <input class="form-control" asp-for="VehiculoRequest.CorreoPropietario" />
+                <span class="text-danger" asp-validation-for="VehiculoRequest.CorreoPropietario"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" asp-for="VehiculoRequest.TelefonoPropietario"></label>
+                <input class="form-control" asp-for="VehiculoRequest.TelefonoPropietario" />
+                <span class="text-danger" asp-validation-for="VehiculoRequest.TelefonoPropietario"></span>
+            </div>
+
+            <div class="text-danger" asp-validation-summary="All"></div>
+
+            <div class="form-group">
+                <a class="btn btn-primary" asp-page="./index">Regresar</a>
+                <input type="submit" value="Editar" class="btn btn-success" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        async function fectModelos() {
+            const marcaId = document.getElementById("marcas").value;
+            if (!marcaId) { return; }
+
+            try {
+                const respuesta = await fetch(`?handler=ObtenerModelos&marcaId=${marcaId}`);
+                const modelos = await respuesta.json();
+                const modelosSelect = document.getElementById("modelos");
+                modelosSelect.innerHTML = '<option value="">Seleccione un modelo</option>';
+
+                modelos.forEach(modelo => {
+                    const option = document.createElement("option");
+                    option.value = modelo.id;
+                    option.text = modelo.nombre;
+                    modelosSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error obteniendo los modelos', error);
+            }
+        }
+    </script>
+}
